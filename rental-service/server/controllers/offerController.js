@@ -9,4 +9,5 @@ async function getAllOffers(req, res, next) {
   }
 }
 
+
 export { getAllOffers };
