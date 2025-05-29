@@ -39,40 +39,40 @@ const adaptOfferToClient = (offer) => {
   };
 };
 
-const adaptFullOfferToClient = (offer, author) => {
+const adaptFullOfferToClient = (offer) => {
   const baseUrl = getBaseUrl();
-
+  const cityLocation = cityCoordinates[offer.city];
   let previewImage = offer.previewImage;
   if (previewImage && !previewImage.startsWith("http")) {
     previewImage = `${baseUrl}${
       previewImage.startsWith("/") ? "" : "/"
     }${previewImage}`;
   }
-
-  const photos = offer.photos.map((photo) =>
-    photo.startsWith("http")
-      ? photo
-      : `${baseUrl}${photo.startsWith("/") ? "" : "/"}${photo}`
-  );
-
-  const adaptedAuthor = {
-    id: String(author.id),
-    username: author.username,
-    avatar: author.avatar
-      ? author.avatar.startsWith("http")
-        ? author.avatar
-        : `${baseUrl}${author.avatar}`
-      : null,
-    userType: author.userType,
-  };
-
   return {
-    ...adaptOfferToClient(offer),
+    id: String(offer.id),
+    title: offer.title,
+    type: offer.type,
+    price: offer.price,
+    city: {
+      name: offer.city,
+      location: cityLocation,
+    },
+    location:
+      offer.latitude && offer.longitude
+        ? {
+            latitude: offer.latitude,
+            longitude: offer.longitude,
+          }
+        : { latitude: 0, longitude: 0 },
+    isFavorite: offer.isFavorite,
+    isPremium: offer.isPremium,
+    rating: parseFloat(offer.rating),
     description: offer.description,
-    photos,
-    features: offer.features,
-    author: adaptedAuthor,
-    commentsCount: offer.commentsCount,
+    rooms: offer.rooms,
+    bedrooms: offer.guests,
+    goods: offer.features,
+    host: offer.author,
+    images: offer.photos,
   };
 };
 

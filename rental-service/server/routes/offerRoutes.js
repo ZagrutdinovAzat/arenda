@@ -3,10 +3,15 @@ import {
   createOffer,
   getAllOffers,
   getFullOffer,
+  getFavoriteOffers,
+  toggleFavorite,
 } from "../controllers/offerController.js";
-import { upload } from "../middleware/upload.js";
+import upload from "../middleware/upload.js";
 
 const offerRouter = new Router();
+
+offerRouter.post("/favorite/:offerId/:status", toggleFavorite);
+offerRouter.get("/favorite", getFavoriteOffers);
 
 offerRouter.get("/offers", getAllOffers);
 offerRouter.post(

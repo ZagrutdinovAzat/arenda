@@ -1,5 +1,5 @@
 import bcrypt from "bcrypt";
-import ApiError from "../error/ApiError.js";
+import ApiError from "../error/apiError.js";
 import { User } from "../models/user.js";
 
 export const registration = async (req, res, next) => {
