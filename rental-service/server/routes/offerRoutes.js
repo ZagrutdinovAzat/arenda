@@ -7,10 +7,15 @@ import {
   toggleFavorite,
 } from "../controllers/offerController.js";
 import upload from "../middleware/upload.js";
+import { authenticateToken } from "../middleware/authMiddleware.js";
 
 const offerRouter = new Router();
 
-offerRouter.post("/favorite/:offerId/:status", toggleFavorite);
+offerRouter.post(
+  "/favorite/:offerId/:status",
+  authenticateToken,
+  toggleFavorite
+);
 offerRouter.get("/favorite", getFavoriteOffers);
 
 offerRouter.get("/offers", getAllOffers);
