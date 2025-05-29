@@ -12,6 +12,6 @@ const router = new Router();
 router.post("/registration", upload.single("avatar"), registration);
 router.post("/login", login);
 router.get("/login", authenticateToken, checkAuth);
-router.delete("logout", logout);
+router.delete("/logout", logout);
 
 export default router;
